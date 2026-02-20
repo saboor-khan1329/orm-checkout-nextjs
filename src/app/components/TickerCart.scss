@@ -1,0 +1,87 @@
+.TickerCart-sp {
+    background: linear-gradient(90deg, rgba(5, 147, 254, 0.2) 0%, rgba(50, 241, 231, 0.2) 100%);
+    padding-block: 25px;
+
+    .TickerCart-wrap {
+        max-width: 900px;
+        width: 100%;
+        gap: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-inline: auto;
+        .TickerCart-content {
+            .content-title {
+                font-size: 18px;
+                font-weight: 500;
+            }
+            .content-para {
+                font-size: 18px;
+                font-weight: 300;
+            }
+        }
+
+        .cta {
+            padding: 12px 25px;
+            border-radius: 30px;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .TickerCart-sp {
+        .TickerCart-wrap {
+            gap: 20px;
+
+            .TickerCart-content {
+                flex: 5;
+                .content-title {
+                    font-size: 16px;
+                }
+                .content-para {
+                    font-size: 16px;
+                }
+            }
+
+            .cta {
+                flex: 1;
+                padding: 12px 25px;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .TickerCart-sp {
+        padding-block: 24px;
+
+        .TickerCart-wrap {
+            flex-direction: column;
+            align-items: start;
+            gap: 15px;
+
+            img{
+                width: 85px;
+            }
+            .TickerCart-content {
+                .content-title {
+                    font-size: 18px;
+                }
+                .content-para {
+                    font-size: 14px;
+                    margin-top: 12px;
+                }
+            }
+
+            .cta {
+                background-color: transparent;
+                color: var(--black);
+                padding: 0;
+                font-size: 14px;
+                font-weight: 700;
+                text-decoration: underline;
+            }
+        }
+    }
+}

@@ -1,0 +1,80 @@
+.checkout-wrap {
+    position: relative;
+    .checkout-layout {
+        display: grid;
+        grid-template-columns: auto 421px;
+        gap: 50px;
+        
+        @media only screen and (min-width:1200px) and (max-width:1399px) {
+            grid-template-columns: auto 390px;
+            gap: 20px;
+            
+        }
+        @media only screen and (max-width:1199px) {
+            grid-template-columns: 100%;
+            gap: 20px;
+            
+        }
+
+
+    }
+}
+
+/* ===============================
+   CHECKOUT STEPPER
+================================ */
+.checkout-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-block: 30px 24px;
+    gap: 100px;
+    position: relative;
+
+    .step-item {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 8px;
+        cursor: pointer;
+
+        .circle {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: var(--white);
+        }
+
+        .label {
+            font-size: 14px;
+            color: var(--black);
+        }
+
+        &.active {
+            .circle {
+                border-color: var(--primary-color);
+                color: var(--primary-color);
+            }
+
+            .label {
+                font-weight: 600;
+            }
+        }
+    }
+
+    .line {
+        position: absolute;
+        top: 13px;
+        left: 50%;
+        transform: translateX(-60%);
+        width: 163px;
+        z-index: -1;
+        height: 2px;
+        background: var(--border);
+    }
+}

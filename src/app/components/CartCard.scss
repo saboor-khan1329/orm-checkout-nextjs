@@ -1,0 +1,177 @@
+.CartCard-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    .box {
+        border: 1px solid var(--border);
+        background-color: var(--white);
+        padding: 13px 16px 34px 16px;
+        display: grid;
+        align-items: center;
+        grid-template-columns: 200px auto 180px;
+        gap: 40px;
+        position: relative;
+
+        .box-img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+        }
+
+        .box-img-mob {
+            display: none;
+        }
+
+        .Card-content {
+            .content-title {
+                font-size: 18px;
+                font-weight: 500;
+            }
+
+            .content-dec {
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+            .content-recently {
+                font-size: 12px;
+                font-weight: 400;
+                color: var(--primary-color);
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                margin-top: 6px;
+
+                img {
+                    margin-right: 3px;
+                }
+            }
+        }
+
+        .card-pricing {
+            text-align: end;
+            .main-price {
+                font-size: 24px;
+                font-weight: 500;
+            }
+
+            .saving {
+                font-size: 14px;
+                font-weight: 400;
+
+                span {
+                    font-weight: 500;
+                    color: var(--green);
+                }
+            }
+        }
+
+        .remove-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: absolute;
+            bottom: 13px;
+            right: 16px;
+
+            span {
+                font-size: 14px;
+                font-weight: 400;
+                color: #999999;
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--black);
+                }
+
+                &:nth-child(2) {
+                    cursor: url("/images/cart/delete.svg"), auto;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .CartCard-wrap {
+        .box {
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 25px;
+
+            .Card-content {
+                .content-title {
+                    font-size: 16px;
+                }
+
+                .content-dec {
+                    font-size: 14px;
+                }
+            }
+
+            .card-pricing {
+                .main-price {
+                    font-size: 22px;
+                }
+            }
+
+            .remove-btn {
+                bottom: 6px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767px) {
+    .CartCard-wrap {
+        .box {
+            grid-template-columns: 1fr;
+            gap: 15px;
+            padding: 13px 16px 40px 16px;
+
+            .box-img {
+                display: none;
+            }
+
+            .box-img-mob {
+                max-width: 250px;
+                height: 100px;
+                object-fit: contain;
+                display: block;
+            }
+
+            .Card-content {
+                .content-title {
+                    font-size: 16px;
+                }
+
+                .content-dec {
+                    font-size: 14px;
+                }
+
+                .content-recently {
+                    justify-content: start;
+                }
+            }
+
+            .card-pricing {
+                text-align: start;
+                display: flex;
+                flex-direction: row-reverse;
+                gap: 25px;
+                justify-content: start;
+                .main-price {
+                    font-size: 20px;
+                }
+            }
+
+            .remove-btn {
+                right: 16px;
+                transform: unset;
+                bottom: 6px;
+
+                span {
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,223 @@
+.order-summary {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 15px 16px 28px 16px;
+
+    .order-title {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .order-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 18px;
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 400;
+
+            strong {
+                font-weight: 500;
+            }
+            .green {
+                color: var(--green);
+            }
+        }
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid var(--black);
+        margin: 15px 0;
+    }
+
+    .order-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+
+        h4 {
+            font-size: 22px;
+            line-height: 0.8;
+        }
+
+        small {
+            font-size: 12px;
+        }
+
+        .total-price {
+            font-size: 22px;
+            font-weight: 700;
+        }
+    }
+
+    .order-savings {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        margin-top: 12px;
+        color: var(--green);
+        font-weight: 400;
+
+        .green {
+            font-weight: 400;
+        }
+    }
+
+    .checkout-btn {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        background: var(--black);
+        color: var(--white);
+        border: 1px solid var(--black);
+        padding: 14px;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: all 120ms ease-out;
+        &:hover {
+            background-color: transparent;
+            color: var(--black);
+        }
+    }
+
+    .order-meta {
+        margin-top: 25px;
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .Payment-logos {
+            width: 215px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .logo-box {
+                flex: 1;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .order-summary {
+        .order-title {
+            font-size: 20px;
+        }
+
+        .order-rows {
+            .order-row {
+                font-size: 15px;
+            }
+        }
+
+        .order-total {
+            h4 {
+                font-size: 18px;
+            }
+
+            .total-price {
+                font-size: 18px;
+                font-weight: 700;
+            }
+        }
+
+        .order-savings {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .checkout-btn {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .order-meta {
+            font-size: 14px;
+        }
+    }
+}
+@media only screen and (max-width: 767px) {
+    .order-summary {
+        .order-title {
+            font-size: 20px;
+        }
+
+        .order-rows {
+            .order-row {
+                font-size: 15px;
+            }
+        }
+
+        .order-total {
+            h4 {
+                font-size: 18px;
+            }
+
+            .total-price {
+                font-size: 18px;
+                font-weight: 700;
+            }
+        }
+
+        .order-savings {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .checkout-btn {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .order-meta {
+            font-size: 14px;
+        }
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .order-summary {
+        .order-title {
+            font-size: 18px;
+        }
+
+        .order-rows {
+            .order-row {
+                font-size: 14px;
+            }
+        }
+
+        .order-total {
+            h4 {
+                font-size: 15px;
+            }
+
+            .total-price {
+                font-size: 15px;
+            }
+        }
+
+        .order-savings {
+            margin-top: 5px;
+        }
+
+        .checkout-btn {
+            padding: 10px;
+            font-size: 14px;
+        }
+    }
+}

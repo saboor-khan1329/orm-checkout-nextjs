@@ -1,0 +1,138 @@
+.step {
+    h2 {
+        font-size: 32px;
+        font-weight: 500;
+        margin-top: 23px;
+        text-decoration: underline;
+    }
+
+    h3 {
+        font-size: 24px;
+        font-weight: 400;
+        margin-top: 25px;
+    }
+
+    .Contact-wrap {
+        background-color: var(--white);
+        padding: 25px;
+        margin-top: 15px;
+        border: 1px solid var(--border);
+
+        .emailwrap {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            label {
+                font-size: 24px;
+                font-weight: 400;
+            }
+        }
+
+        .checkout-input {
+            height: 52px;
+            padding-inline: 16px;
+            border: 1px solid #7d7d7d;
+
+            &:focus,
+            &:focus-visible {
+                border-color: var(--primary-color);
+                outline: none;
+                // box-shadow: 0 0 0 1px var(--primary-color);
+            }
+
+            &::placeholder {
+                font-size: 16px;
+                font-weight: 400;
+                color: #7d7d7d;
+            }
+
+            &:hover {
+                border-color: var(--primary-color);
+            }
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 15px;
+            margin-top: 15px;
+
+            @media only screen and (max-width: 767px) {
+                grid-template-columns: 100%;
+            }
+
+            .full-row {
+                grid-column: span 2;
+                @media only screen and (max-width: 767px) {
+                    grid-column: unset;
+                }
+            }
+        }
+
+        hr {
+            margin-block: 25px;
+        }
+
+        button {
+            max-width: 350px;
+            width: 100%;
+            background-color: var(--primary-color);
+            border: none;
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 700;
+            padding: 15px;
+            transition: background 150ms ease-in-out;
+
+            &:hover {
+                background-color: var(--hover);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .step {
+        h2 {
+            font-size: 26px;
+        }
+
+        h3 {
+            font-size: 20px;
+        }
+
+        .Contact-wrap {
+            background-color: var(--white);
+            padding: 20px 15px;
+
+            .emailwrap {
+                label {
+                    font-size: 20px;
+                }
+            }
+
+            .checkout-input {
+                height: 40px;
+
+                &::placeholder {
+                    font-size: 13px;
+                }
+            }
+
+            .input-grid {
+                grid-template-columns: 100%;
+
+                .full-row {
+                    grid-column: unset;
+                }
+            }
+
+            button {
+                max-width: unset;
+                font-size: 14px;
+                padding: 15px;
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+.Navbar-sp {
+    padding-block: 27px;
+    background-color: var(--white);
+
+    @media only screen and (max-width: 767px) {
+        padding-block: 16px;
+    }
+
+    .Navbar-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+
+        .Navbar-logo {
+            @media only screen and (max-width: 767px) {
+                width: 80px;
+            }
+        }
+
+        .Navbar-title {
+            flex: 1;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .icons-wrap {
+            flex: 1;
+            display: flex;
+            justify-content: end;
+        }
+    }
+}

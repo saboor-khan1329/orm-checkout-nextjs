@@ -1,0 +1,83 @@
+.CartLayout-sp {
+    margin-top: 60px;
+
+    .back-btn {
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .title {
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 0.7;
+        display: flex;
+        align-items: end;
+        gap: 6px;
+        margin-top: 23px;
+
+        span {
+            font-size: 16px;
+            font-weight: 400;
+        }
+    }
+
+    .CartLayout-wrap {
+        display: grid;
+        grid-template-columns: 70% 30%;
+        gap: 50px;
+        margin-top: 30px;
+
+        .card-aside-wrap {
+            .aside-sticky {
+                position: sticky;
+                top: 10px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .CartLayout-sp {
+        .CartLayout-wrap {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+
+            .card-wrap {
+                width: calc(68% - 20px);
+            }
+
+            .card-aside-wrap {
+                width: 32%;
+                .aside-sticky {
+                    position: sticky;
+                    top: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .CartLayout-sp {
+        .title {
+            font-size: 20px;
+            align-items: end;
+            gap: 8px;
+
+            span {
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+
+        .CartLayout-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+    }
+}

@@ -1,0 +1,95 @@
+.fbt-wrapper {
+    width: 100%;
+    margin-top: 68px;
+    .fbt-title {
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    .fbt-container {
+        position: relative;
+        margin-top: 25px;
+
+        .cart-slider {
+            z-index: 0;
+            margin-inline: 20px;
+        }
+
+        .fbt-card {
+            border: 1px solid var(--border);
+            padding: 16px;
+            background: var(--white);
+            text-align: center;
+
+            img {
+                max-width: 100%;
+                height: 150px;
+                object-fit: contain;
+                margin-bottom: 10px;
+            }
+
+            h4 {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            p {
+                font-size: 14px;
+                font-weight: 400;
+                margin-top: 10px;
+            }
+
+            .fbt-price {
+                margin-block: 20px;
+                font-weight: 500;
+
+                .old {
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    margin-right: 10px;
+                }
+
+                strong {
+                    font-size: 26px;
+                }
+            }
+
+            .fbt-btn {
+                width: 100%;
+                background: var(--primary-color);
+                color: var(--white);
+                border: 1px solid var(--primary-color);
+                padding: 12px;
+                cursor: pointer;
+                font-size: 18px;
+                transition: all 120ms ease-in-out;
+
+                &:hover {
+                    background-color: transparent;
+                    color: var(--black);
+                }
+            }
+        }
+
+        .fbt-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: none;
+            border: none;
+            font-size: 50px;
+            font-family: 600;
+            cursor: pointer;
+            color: var(--black);
+
+            &.left {
+                left: 0px;
+            }
+
+            &.right {
+                right: 0px;
+            }
+        }
+    }
+}
