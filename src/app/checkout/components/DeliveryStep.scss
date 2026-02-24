@@ -173,6 +173,14 @@
                 }
             }
 
+            .cta{
+                margin-top: 20px;
+
+                &:disabled{
+                    background-color: #5a91d8;
+                }
+            }
+
             .delivery-box-wrap {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);

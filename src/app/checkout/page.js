@@ -36,7 +36,7 @@ function CheckoutContent() {
 
                                 <CartBox />
 
-                                {state.step === 2 && (
+                                {state.step >= 2 && (
                                     <ShipToSummary
                                         onEdit={() => dispatch({ type: "SET_STEP", payload: 1 })}
                                     />

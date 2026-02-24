@@ -68,9 +68,10 @@ export default function DeliveryStep() {
             </label>
           </div>
           <DeliveryOptions partner={partner} />
-          {state.step < 3 && (
-            <button disabled={!isDeliveryComplete} onClick={() => dispatch({ type: "SET_STEP", payload: 3 })}>
-              Continue
+
+          {state.maxStepReached  < 3 && (
+            <button className="cta" disabled={!isDeliveryComplete} onClick={() => dispatch({ type: "SET_STEP", payload: 3 })}>
+              {!isDeliveryComplete ? "Select shipping" : "Continue To Payment "}
             </button>
           )}
         </div>
@@ -78,7 +79,7 @@ export default function DeliveryStep() {
 
       </div>
 
-      {state.step >= 3 && (
+      {state.maxStepReached >= 3 && (
         <>
           <div className="box-wrap">
             <h2>3. Payment Method</h2>

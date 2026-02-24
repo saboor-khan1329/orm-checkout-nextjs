@@ -5,7 +5,8 @@ import { createContext, useContext, useReducer } from "react";
 const CheckoutContext = createContext(null);
 
 const initialState = {
-    step: 2,
+    step: 1,
+    maxStepReached: 2,
 
     contact: {
         email: "",
@@ -23,6 +24,7 @@ const initialState = {
         partner: "fedex",
         option: null,
     },
+
 
     payment: {
         method: "electronic", // electronic | bank
@@ -54,7 +56,8 @@ function reducer(state, action) {
         case "SET_STEP":
             return {
                 ...state,
-                step: action.payload 
+                step: action.payload,
+                maxStepReached: Math.max(state.maxStepReached, action.payload)
             };
 
         case "NEXT_STEP":

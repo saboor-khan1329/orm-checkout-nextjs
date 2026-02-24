@@ -19,7 +19,7 @@ export default function DeliveryOptions({ partner }) {
   const list = showAll ? options[partner] : options[partner].slice(0, 4);
 
   return (
-    <>
+    <div>
       <div className="delivery-box-wrap">
         {list.map((o) => (
           <div key={o} className="delivery-box">
@@ -41,7 +41,6 @@ export default function DeliveryOptions({ partner }) {
           </div>
         ))}
       </div>
-
       {options[partner].length > 4 && !showAll && (
         <button
           onClick={() => setShowAll(true)}
@@ -50,6 +49,7 @@ export default function DeliveryOptions({ partner }) {
           View more*
         </button>
       )}
-    </>
+
+    </div>
   );
 }
