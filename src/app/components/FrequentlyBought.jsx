@@ -11,12 +11,12 @@ import "./FrequentlyBought.scss";
 const FrequentlyBought = ({ products = [] }) => {
   const { addItem } = useCart();
 
-  if (!products.length) return null;
+  if (!products || products.length === 0) return null;
 
   return (
     <div className="fbt-wrapper">
+      {" "}
       <h3 className="fbt-title">Frequently bought together</h3>
-
       <div className="fbt-container">
         <Swiper
           modules={[Navigation]}
@@ -35,43 +35,51 @@ const FrequentlyBought = ({ products = [] }) => {
             1200: { slidesPerView: 3 },
           }}
         >
-          {products.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className="fbt-card">
-                <Image
-                  src={item.thumbnail}
-                  width={200}
-                  height={150}
-                  alt={item.name}
-                />
+          {products.map((item) => {
+            const currency = item.symbol || "$";
 
-                <h4>{item.sku}</h4>
+            return (
+              <SwiperSlide key={item.id}>
+                <div className="fbt-card">
+                  <Image
+                    src={item.thumbnail}
+                    width={200}
+                    height={150}
+                    alt={item.name}
+                  />
 
-                <p>{item.name}</p>
+                  <h4>{item.sku}</h4>
 
-                <div className="fbt-price">
-                  <span className="old">
-                    ${Number(item.previous_price).toFixed(2)}
-                  </span>
+                  <p>{item.name}</p>
 
-                  <strong>${Number(item.current_price).toFixed(2)}</strong>
+                  <div className="fbt-price">
+                    <span className="old">
+                      {currency}
+                      {Number(item.previous_price || 0).toFixed(2)}
+                    </span>
+
+                    <strong>
+                      {currency}
+                      {Number(item.current_price || 0).toFixed(2)}
+                    </strong>
+                  </div>
+
+                  <button
+                    className="fbt-btn"
+                    onClick={() =>
+                      addItem.mutate({
+                        product_id: item.id,
+                        quantity: 1,
+                        condition: item.condition ?? "new",
+                      })
+                    }
+                  >
+                    Add to Cart
+                  </button>
                 </div>
-
-                <button
-                  className="fbt-btn"
-                  onClick={() =>
-                    addItem.mutate({
-                      product_id: item.id,
-                      quantity: 1,
-                      condition: item.condition ?? "new",
-                    })
-                  }
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
 
         <button className="fbt-arrow left">‹</button>

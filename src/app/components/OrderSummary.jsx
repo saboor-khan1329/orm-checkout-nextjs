@@ -11,25 +11,28 @@ const OrderSummary = ({ showMeta = true }) => {
   const { summary, cart } = useCart();
   const router = useRouter();
 
-  if (!summary) return null;
+  const items = cart?.items ?? [];
 
-  const currency = cart?.items?.[0]?.symbol || "$";
+  // Safe fallback values
+  const currency = items?.[0]?.symbol || summary?.currency_symbol || "$";
 
-  const subtotal = Number(summary.subtotal || 0);
-  const shipping = Number(summary.shipping || 0);
-  const tax = Number(summary.tax || 0);
-  const taxpercent = Number(summary.tax_rate || 0);
-  const total = Number(summary.total || 0);
-  const savings = Number(summary.savings || 0);
+  const subtotal = Number(summary?.subtotal ?? 0);
+  const shipping = Number(summary?.shipping ?? 0);
+  const tax = Number(summary?.tax ?? 0);
+  const taxpercent = Number(summary?.tax_rate ?? 0);
+  const total = Number(summary?.total ?? 0);
+  const savings = Number(summary?.savings ?? 0);
 
-  const format = (value) => `${currency}${value.toFixed(2)}`;
+  const showTax = tax > 0;
+
+  const format = (value) => `${currency}${Number(value).toFixed(2)}`;
 
   const handleCheckout = async () => {
     try {
       const res = await cartApi.validateCart();
 
-      if (!res.valid) {
-        alert(res.message || "Cart validation failed");
+      if (!res?.valid) {
+        alert(res?.message || "Cart validation failed");
         return;
       }
 
@@ -38,6 +41,19 @@ const OrderSummary = ({ showMeta = true }) => {
       alert(err.message || "Unable to validate cart");
     }
   };
+
+  // Prevent rendering when cart empty
+  if (!summary || items.length === 0) {
+    return (
+      <div className="order-summary">
+        <h3 className="order-title">ORDER SUMMARY</h3>
+
+        <div className="order-row">
+          <span>Your cart is empty</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="order-summary">
@@ -56,15 +72,19 @@ const OrderSummary = ({ showMeta = true }) => {
           </strong>
         </div>
 
-        <div className="order-row">
-          <span>Estimated VAT rate</span>
-          <strong>{taxpercent.toFixed(0)}%</strong>
-        </div>
+        {showTax && (
+          <>
+            <div className="order-row">
+              <span>Estimated VAT rate</span>
+              <strong>{taxpercent.toFixed(0)}%</strong>
+            </div>
 
-        <div className="order-row">
-          <span>Estimated VAT</span>
-          <strong>{format(tax)}</strong>
-        </div>
+            <div className="order-row">
+              <span>Estimated VAT</span>
+              <strong>{format(tax)}</strong>
+            </div>
+          </>
+        )}
       </div>
 
       <hr />
@@ -72,7 +92,7 @@ const OrderSummary = ({ showMeta = true }) => {
       <div className="order-total">
         <div>
           <h4>Estimated Total</h4>
-          <small>Tax included</small>
+          {showTax && <small>Tax included</small>}
         </div>
 
         <strong className="total-price">{format(total)}</strong>
@@ -93,12 +113,13 @@ const OrderSummary = ({ showMeta = true }) => {
         <div className="order-meta">
           <div className="d-flex align-items-center gap-2">
             <strong>Shipping:</strong>
+
             <div className="logos">
               <Image
                 src="/images/cart/shipping-logo.svg"
                 width={100}
                 height={20}
-                alt=""
+                alt="shipping"
               />
             </div>
           </div>
@@ -107,50 +128,40 @@ const OrderSummary = ({ showMeta = true }) => {
             <strong>Payment:</strong>
 
             <span className="Payment-logos">
-              <div className="logo-box">
-                <Image
-                  src="/images/cart/payment-logo-1.svg"
-                  width={215}
-                  height={21}
-                  alt=""
-                />
-              </div>
+              <Image
+                src="/images/cart/payment-logo-1.svg"
+                width={215}
+                height={21}
+                alt=""
+              />
 
-              <div className="logo-box">
-                <Image
-                  src="/images/cart/payment-logo-2.svg"
-                  width={215}
-                  height={21}
-                  alt=""
-                />
-              </div>
+              <Image
+                src="/images/cart/payment-logo-2.svg"
+                width={215}
+                height={21}
+                alt=""
+              />
 
-              <div className="logo-box">
-                <Image
-                  src="/images/cart/payment-logo-3.svg"
-                  width={215}
-                  height={21}
-                  alt=""
-                />
-              </div>
+              <Image
+                src="/images/cart/payment-logo-3.svg"
+                width={215}
+                height={21}
+                alt=""
+              />
 
-              <div className="logo-box">
-                <Image
-                  src="/images/cart/payment-logo-4.svg"
-                  width={215}
-                  height={21}
-                  alt=""
-                />
-              </div>
+              <Image
+                src="/images/cart/payment-logo-4.svg"
+                width={215}
+                height={21}
+                alt=""
+              />
 
-              <div className="logo-box">
-                <Image
-                  src="/images/cart/payment-logo-5.svg"
-                  width={215}
-                  height={21}
-                  alt=""
-                />
-              </div>
+              <Image
+                src="/images/cart/payment-logo-5.svg"
+                width={215}
+                height={21}
+                alt=""
+              />
             </span>
           </div>
         </div>

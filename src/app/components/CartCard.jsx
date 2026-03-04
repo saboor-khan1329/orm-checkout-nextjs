@@ -53,10 +53,18 @@ const CartCard = ({ items = [] }) => {
                 Savings: &nbsp;
                 {/* {item.symbol}
                 {item.previous_price - item.price} */}
-                {(
+                {/* {(
                   ((item.previous_price - item.price) / item.previous_price) *
                   100
                 ).toFixed(2)}
+                % */}
+                {item.previous_price > 0
+                  ? (
+                      ((item.previous_price - item.price) /
+                        item.previous_price) *
+                      100
+                    ).toFixed(2)
+                  : 0}
                 %
               </p>
             </div>

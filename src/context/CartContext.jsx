@@ -9,19 +9,10 @@ const CartContext = createContext(null);
 export function CartProvider({ children }) {
   const queryClient = useQueryClient();
 
-  //   const cartQuery = useQuery({
-  //     queryKey: ["cart"],
-  //     queryFn: cartApi.getCart,
-  //   });
-
-  //   const invalidate = () => {
-  //     queryClient.invalidateQueries({ queryKey: ["cart"] });
-  //   };
-
   const cartQuery = useQuery({
     queryKey: ["cart"],
     queryFn: cartApi.getCart,
-    refetchInterval: 5000,
+    refetchInterval: 15000,
     refetchOnWindowFocus: true,
   });
   const invalidate = async () => {
@@ -32,11 +23,6 @@ export function CartProvider({ children }) {
     mutationFn: cartApi.addItem,
     onSuccess: invalidate,
   });
-
-  //   const updateQty = useMutation({
-  //     mutationFn: cartApi.updateQty,
-  //     onSuccess: invalidate,
-  //   });
 
   const updateQty = useMutation({
     mutationFn: cartApi.updateQty,
