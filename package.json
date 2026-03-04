@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "infra:dump": "node scripts/infra-dump.js",
     "lint": "eslint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.21",
     "bootstrap": "^5.3.8",
     "next": "16.1.6",
     "react": "19.2.3",

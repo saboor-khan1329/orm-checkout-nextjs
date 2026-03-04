@@ -1,45 +1,42 @@
 "use client";
 
-import { useState } from "react";
-import "./QuantityStepper.scss"
+import { useEffect, useState } from "react";
+import "./QuantityStepper.scss";
+import { useCart } from "@/context/CartContext";
 
-const QuantityStepper = ({
-    min = 1,
-    max = 999,
-    value = 1,
-    onChange,
-}) => {
+const QuantityStepper = ({ itemId, value = 1 }) => {
+  const [qty, setQty] = useState(value);
 
-    const [qty, setQty] = useState(value);
+  const { updateQty } = useCart();
 
-    const updateQty = (newQty) => {
-        if (newQty < min || newQty > max) return;
-        setQty(newQty);
-        if (onChange) onChange(newQty);
-    };
-    return (
-        <div className="qty-stepper">
-            <button
-                type="button"
-                className="qty-btn"
-                onClick={() => updateQty(qty - 1)}
-                disabled={qty <= min}
-            >
-                −
-            </button>
+  useEffect(() => {
+    setQty(value);
+  }, [value]);
 
-            <span className="qty-value">{qty}</span>
+  const update = (newQty) => {
+    if (newQty < 1) return;
 
-            <button
-                type="button"
-                className="qty-btn"
-                onClick={() => updateQty(qty + 1)}
-                disabled={qty >= max}
-            >
-                +
-            </button>
-        </div>
-    );
-}
+    setQty(newQty);
 
-export default QuantityStepper
+    updateQty.mutate({
+      itemId,
+      quantity: newQty,
+    });
+  };
+
+  return (
+    <div className="qty-stepper">
+      <button className="qty-btn" onClick={() => update(qty - 1)}>
+        −
+      </button>
+
+      <span className="qty-value">{qty}</span>
+
+      <button className="qty-btn" onClick={() => update(qty + 1)}>
+        +
+      </button>
+    </div>
+  );
+};
+
+export default QuantityStepper;
