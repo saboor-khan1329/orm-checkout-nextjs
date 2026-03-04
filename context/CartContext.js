@@ -1,71 +1,52 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
-import { cartApi } from "@/lib/cartApi";
+
+import { createContext, useContext } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { cartApi } from "../lib/cartApi";
+// import { cartApi } from "@/lib/cartApi";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState(null);
-  const [summary, setSummary] = useState(null);
-  const [related, setRelated] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  const fetchCart = async () => {
-    try {
-      const data = await cartApi.get();
-      if (data.success) {
-        setCart(data.cart);
-        setSummary(data.cartSummary);
-      }
-    } finally {
-      setLoading(false);
-    }
+  // Fetch cart
+  const cartQuery = useQuery({
+    queryKey: ["cart"],
+    queryFn: cartApi.getCart,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  // Fetch related
+  const relatedQuery = useQuery({
+    queryKey: ["related"],
+    queryFn: cartApi.getRelated,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const invalidate = () => {
+    queryClient.invalidateQueries({ queryKey: ["cart"] });
+    queryClient.invalidateQueries({ queryKey: ["related"] });
   };
 
-  const fetchRelated = async () => {
-    const data = await cartApi.related();
-    if (data.success) setRelated(data.data);
-  };
+  const updateItem = useMutation({
+    mutationFn: ({ id, qty }) => cartApi.updateItem(id, qty),
+    onSuccess: invalidate,
+  });
 
-  const addToCart = async (productId) => {
-    const data = await cartApi.add(productId);
-    if (data.success) {
-      setCart(data.cart);
-      setSummary(data.cartSummary);
-      fetchRelated();
-    }
-  };
-
-  const updateQuantity = async (itemId, qty) => {
-    const data = await cartApi.update(itemId, qty);
-    if (data.success) {
-      setCart(data.cart);
-      setSummary(data.cartSummary);
-    }
-  };
-
-  const removeItem = async (itemId) => {
-    const data = await cartApi.remove(itemId);
-    if (data.success) {
-      setCart(data.cart);
-      setSummary(data.cartSummary);
-    }
-  };
-
-  useEffect(() => {
-    fetchCart();
-    fetchRelated();
-  }, []);
+  const removeItem = useMutation({
+    mutationFn: cartApi.removeItem,
+    onSuccess: invalidate,
+  });
 
   return (
     <CartContext.Provider
       value={{
-        cart,
-        summary,
-        related,
-        loading,
-        addToCart,
-        updateQuantity,
+        cart: cartQuery.data?.cart,
+        summary: cartQuery.data?.cartSummary,
+        related: relatedQuery.data?.data || [],
+        loading: cartQuery.isLoading,
+        updateItem,
         removeItem,
       }}
     >

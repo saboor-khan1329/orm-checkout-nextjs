@@ -55,7 +55,8 @@ const CartCard = ({ items = [] }) => {
               </p>
             </div>
 
-            <QuantityStepper quantity={item.quantity} />
+            {/* <QuantityStepper quantity={item.quantity} /> */}
+            <QuantityStepper quantity={item.quantity} itemId={item.id} />
           </div>
 
           <div className="remove-btn">
@@ -67,4 +68,4 @@ const CartCard = ({ items = [] }) => {
   );
 };
 
-export default CartCard
+export default CartCard;
