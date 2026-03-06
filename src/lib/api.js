@@ -8,42 +8,44 @@ export async function apiFetch(endpoint, options = {}) {
   try {
     const res = await fetch(`${API_BASE}${endpoint}`, {
       credentials: "include",
+
       signal: controller.signal,
+
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
         ...options.headers,
       },
+
       ...options,
     });
 
     clearTimeout(timeout);
 
-    const contentType = res.headers.get("content-type");
+    const type = res.headers.get("content-type");
 
     if (!res.ok) {
-      let message = "Request failed";
+      let msg = "Request failed";
 
-      if (contentType?.includes("application/json")) {
-        const json = await res.json();
-        message = json.message || message;
-      } else {
-        message = await res.text();
+      if (type?.includes("json")) {
+        const j = await res.json();
+        msg = j.message || msg;
       }
 
-      throw new Error(message);
+      throw new Error(msg);
     }
 
-    if (contentType?.includes("application/json")) {
+    if (type?.includes("json")) {
       return res.json();
     }
 
     return null;
-  } catch (error) {
-    if (error.name === "AbortError") {
+  } catch (e) {
+    if (e.name === "AbortError") {
       throw new Error("Request timeout");
     }
 
-    throw error;
+    throw e;
   }
 }

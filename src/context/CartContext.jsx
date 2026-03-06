@@ -13,8 +13,11 @@ export function CartProvider({ children }) {
     queryKey: ["cart"],
     queryFn: cartApi.getCart,
     refetchInterval: 15000,
+    refetchOnMount: true,
+    staleTime: 1000 * 10,
     refetchOnWindowFocus: true,
   });
+
   const invalidate = async () => {
     await queryClient.invalidateQueries({ queryKey: ["cart"] });
   };
@@ -37,6 +40,20 @@ export function CartProvider({ children }) {
     onSuccess: invalidate,
   });
 
+  const updateSummary = (summary) => {
+    queryClient.setQueryData(["cart"], (old) => {
+      if (!old) return old;
+
+      return {
+        ...old,
+        cartSummary: {
+          ...old.cartSummary,
+          ...summary,
+        },
+      };
+    });
+  };
+
   const value = useMemo(
     () => ({
       cart: cartQuery.data?.cart ?? { items: [] },
@@ -47,6 +64,8 @@ export function CartProvider({ children }) {
       addItem,
       updateQty,
       removeItem,
+
+      updateSummary,
     }),
     [cartQuery.data, cartQuery.isLoading, addItem, updateQty, removeItem],
   );

@@ -28,6 +28,7 @@ const targets = [
   "src/hooks",
   "src/lib",
   "src/providers",
+  ".env",
 ];
 
 console.log("Creating Next.js infrastructure dump...");

@@ -2,70 +2,72 @@
 
 import Image from "next/image";
 import "./CartBox.scss";
+import { useCart } from "@/context/CartContext";
 
 export default function CartBox() {
+  const { cart } = useCart();
+
+  const items = cart?.items ?? [];
+
+  if (!items.length) {
+    return (
+      <div className="cart-box">
+        <div className="cart-header">
+          <h2>Your Cart</h2>
+          <span>0 items</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="cart-box">
-
       <div className="cart-header">
         <h2>Your Cart</h2>
-        <span>2 items</span>
+        <span>{items.length} items</span>
       </div>
 
-      {/* Item 1 */}
-      <div className="cart-item">
-        <div className="cart-img">
-          <Image
-            src="/images/cart/product-img.jpg"   // apna image path
-            width={120}
-            height={60}
-            alt="product"
-          />
-        </div>
+      {items.map((item, index) => (
+        <div key={item.id}>
+          <div className="cart-item">
+            <div className="cart-img">
+              <Image
+                src={item.thumbnail || "/images/cart/product-img.jpg"}
+                width={120}
+                height={60}
+                alt={item.name}
+                unoptimized
+              />
+            </div>
 
-        <div className="cart-info">
-          <h3>C9300L-24P-4G-E</h3>
-          <p>CATALYST 9300L 24P POE NTWK ESSENTIALS 4X1G UPLINK</p>
+            <div className="cart-info">
+              <h3>{item.sku}</h3>
 
-          <div className="cart-price-row">
-            <span className="qty">x1</span>
+              <p>{item.name}</p>
 
-            <div className="price">
-              <strong>$979.99</strong>
-              <span className="old-price">$1,354.99</span>
+              <div className="cart-price-row">
+                <span className="qty">x{item.quantity}</span>
+
+                <div className="price">
+                  <strong>
+                    {item.symbol}
+                    {Number(item.price).toFixed(2)}
+                  </strong>
+
+                  {item.previous_price > 0 && (
+                    <span className="old-price">
+                      {item.symbol}
+                      {Number(item.previous_price).toFixed(2)}
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
+
+          {index !== items.length - 1 && <hr />}
         </div>
-      </div>
-
-      <hr />
-
-      {/* Item 2 */}
-      <div className="cart-item">
-        <div className="cart-img">
-          <Image
-            src="/images/cart/product-img.jpg"
-            width={120}
-            height={60}
-            alt="product"
-          />
-        </div>
-
-        <div className="cart-info">
-          <h3>C9300L-24P-4G-E</h3>
-          <p>CATALYST 9300L 24P POE NTWK ESSENTIALS 4X1G UPLINK</p>
-
-          <div className="cart-price-row">
-            <span className="qty">x1</span>
-
-            <div className="price">
-              <strong>$979.99</strong>
-              <span className="old-price">$1,354.99</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      ))}
     </div>
   );
 }

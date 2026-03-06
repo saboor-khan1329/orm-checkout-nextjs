@@ -105,7 +105,11 @@ const OrderSummary = ({ showMeta = true }) => {
 
       <hr />
 
-      <button onClick={handleCheckout} className="checkout-btn">
+      <button
+        onClick={handleCheckout}
+        className="checkout-btn"
+        disabled={items.length === 0}
+      >
         PROCEED TO CHECKOUT
       </button>
 

@@ -5,87 +5,86 @@ import { createContext, useContext, useReducer } from "react";
 const CheckoutContext = createContext(null);
 
 const initialState = {
-    step: 1,
-    maxStepReached: 2,
+  step: 1,
+  maxStepReached: 2,
 
-    contact: {
-        email: "",
-        name: "",
-        phone: "",
-        company: "",
-        country: "",
-        address: "",
-        zip: "",
-        city: "",
-    },
+  contact: {
+    email: "",
+    name: "",
+    phone: "",
+    company: "",
+    country: "",
+    address: "",
+    zip: "",
+    city: "",
+    checkout_id: null,
+    submitted_at: null,
+    cart_hash: null,
+  },
 
+  delivery: {
+    partner: "fedex",
+    option: null,
+  },
 
-    delivery: {
-        partner: "fedex",
-        option: null,
-    },
-
-
-    payment: {
-        method: "electronic", // electronic | bank
-        screenshot: null,
-    },
+  payment: {
+    method: "electronic",
+    screenshot: null,
+  },
 };
 
 function reducer(state, action) {
-    switch (action.type) {
+  switch (action.type) {
+    case "SET_CONTACT":
+      return {
+        ...state,
+        contact: { ...state.contact, ...action.payload },
+      };
 
-        case "SET_CONTACT":
-            return {
-                ...state,
-                contact: { ...state.contact, ...action.payload }
-            };
+    case "SET_DELIVERY":
+      return {
+        ...state,
+        delivery: { ...state.delivery, ...action.payload },
+      };
 
-        case "SET_DELIVERY":
-            return {
-                ...state,
-                delivery: { ...state.delivery, ...action.payload }
-            };
+    case "SET_PAYMENT":
+      return {
+        ...state,
+        payment: { ...state.payment, ...action.payload },
+      };
 
-        case "SET_PAYMENT":
-            return {
-                ...state,
-                payment: { ...state.payment, ...action.payload }
-            };
+    case "SET_STEP":
+      return {
+        ...state,
+        step: action.payload,
+        maxStepReached: Math.max(state.maxStepReached, action.payload),
+      };
 
-        case "SET_STEP":
-            return {
-                ...state,
-                step: action.payload,
-                maxStepReached: Math.max(state.maxStepReached, action.payload)
-            };
+    case "NEXT_STEP":
+      return {
+        ...state,
+        step: Math.min(state.step + 1, 2),
+      };
 
-        case "NEXT_STEP":
-            return {
-                ...state,
-                step: Math.min(state.step + 1, 2)
-            };
+    case "PREV_STEP":
+      return {
+        ...state,
+        step: Math.max(state.step - 1, 1),
+      };
 
-        case "PREV_STEP":
-            return {
-                ...state,
-                step: Math.max(state.step - 1, 1)
-            };
-
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }
 
-
 export const CheckoutProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    return (
-        <CheckoutContext.Provider value={{ state, dispatch }}>
-            {children}
-        </CheckoutContext.Provider>
-    );
+  return (
+    <CheckoutContext.Provider value={{ state, dispatch }}>
+      {children}
+    </CheckoutContext.Provider>
+  );
 };
 
 export const useCheckout = () => useContext(CheckoutContext);
